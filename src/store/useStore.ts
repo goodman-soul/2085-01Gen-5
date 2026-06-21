@@ -3,6 +3,9 @@ import type { AppState, Employee, PickupRecord, AlertItem, MonthlySummary, Suppl
 import { getState, setState, login as storageLogin, logout as storageLogout, addPickupRecord, initializeStorage } from "@/data/storage";
 import { canPickup, getAllAlerts, getMonthlySummary, getSupplyDetails } from "@/utils/validator";
 
+initializeStorage();
+const persistedState = getState();
+
 interface StoreState extends AppState {
   init: () => void;
   login: (employeeId: string) => Employee | null;
@@ -15,17 +18,16 @@ interface StoreState extends AppState {
 }
 
 export const useStore = create<StoreState>((set, get) => ({
-  currentUser: null,
-  employees: [],
-  positions: [],
-  workshops: [],
-  supplies: [],
-  quotas: [],
-  inventories: [],
-  pickupRecords: [],
+  currentUser: persistedState.currentUser,
+  employees: persistedState.employees,
+  positions: persistedState.positions,
+  workshops: persistedState.workshops,
+  supplies: persistedState.supplies,
+  quotas: persistedState.quotas,
+  inventories: persistedState.inventories,
+  pickupRecords: persistedState.pickupRecords,
 
   init: () => {
-    initializeStorage();
     const state = getState();
     set(state);
   },

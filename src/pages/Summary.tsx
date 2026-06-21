@@ -92,7 +92,7 @@ export const Summary: React.FC = () => {
     link.click();
   };
 
-  if (!currentUser || !currentUser.isSupervisor === false) return null;
+  if (!currentUser || !currentUser.isSupervisor) return null;
 
   return (
     <Layout>
